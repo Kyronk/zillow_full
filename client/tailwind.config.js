@@ -7,28 +7,28 @@ export default {
     theme: {
         extend: {
             backgroundColor: {
-                "mani-50" : "#EDEFF6",
-                "mani-100" : "#DBDFFC",
-                "mani-200" : "#B7BFD9",
-                "mani-300" : "#92A0C7",
-                "mani-400" : "#6E80B4",
-                "mani-500" : "#4A60A1",
-                "mani-600" : "#3B4D81",
-                "mani-700" : "#2C3A61",
-                "mani-800" : "#1E2640",
-                "mani-900" : "#0F1320"
+                "main-50" : "#EDEFF6",
+                "main-100" : "#DBDFFC",
+                "main-200" : "#B7BFD9",
+                "main-300" : "#92A0C7",
+                "main-400" : "#6E80B4",
+                "main-500" : "#4A60A1",
+                "main-600" : "#3B4D81",
+                "main-700" : "#2C3A61",
+                "main-800" : "#1E2640",
+                "main-900" : "#0F1320"
             },
             colors : {
-                "mani-50" : "#EDEFF6",
-                "mani-100" : "#DBDFFC",
-                "mani-200" : "#B7BFD9",
-                "mani-300" : "#92A0C7",
-                "mani-400" : "#6E80B4",
-                "mani-500" : "#4A60A1",
-                "mani-600" : "#3B4D81",
-                "mani-700" : "#2C3A61",
-                "mani-800" : "#1E2640",
-                "mani-900" : "#0F1320"
+                "main-50" : "#EDEFF6",
+                "main-100" : "#DBDFFC",
+                "main-200" : "#B7BFD9",
+                "main-300" : "#92A0C7",
+                "main-400" : "#6E80B4",
+                "main-500" : "#4A60A1",
+                "main-600" : "#3B4D81",
+                "main-700" : "#2C3A61",
+                "main-800" : "#1E2640",
+                "main-900" : "#0F1320"
             },
             width: {
                 main: "1319px"
