@@ -6,12 +6,15 @@ import path from './utils/path'
 // import PublicLayout from './pages/public/PublicLayout'
 // import Home from "./pages/public/Home"
 import { AboutUs, Home, OurAgents, Properties, PublicLayout, Search   } from './pages/public'
+import { Modal } from './components'
 function App() {
     // const [count, setCount] = useState(0)
 
     return (
 
         <div className="">
+            <Modal  className=""/>
+
             <Routes>
                 <Route path={path.PUBLIC_LAYOUT} element={<PublicLayout />}>
                     <Route path={path.HOME} element={<Home />} />
