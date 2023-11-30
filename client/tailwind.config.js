@@ -5,6 +5,10 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
+        fontFamily: {
+            agbalumo: ["Agbalumo"],
+            dance: ["Dancing Script"],
+        },
         extend: {
             backgroundColor: {
                 "main-50" : "#EDEFF6",
@@ -39,6 +43,8 @@ export default {
             }
         },
     },
-    plugins: [],
+    plugins: [
+        require("@tailwindcss/forms")
+    ],
 }
 

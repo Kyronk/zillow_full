@@ -5,8 +5,19 @@ import { navigations } from '../../utils/constants';
 import { twMerge } from "tailwind-merge";
 import clsx from 'clsx';
 import withRouter from '../../hocs/withRouter';
+import {Login} from '../index';
+
+// redux
+import {useUserStore} from "../../store/useUserStore";
+import { useAppStore } from '../../store/useAppStore';
+
 
 const Navigation = ({location}) => {
+
+    const {token} = useUserStore();
+    const { setModal} = useAppStore();
+    // console.log("check ", setModal);
+
     return (
         <div className={twMerge(clsx("h-[85px] w-full bg-transparent flex items-center justify-between fixed z-50 top-[85px] px-[100px] py-[26px]",
             location.pathname !== "/" && "bg-white"
@@ -26,9 +37,17 @@ const Navigation = ({location}) => {
                         {elm.text}
                     </NavLink>
                 ))}
-                <Button className={twMerge(clsx(location.pathname === "/" && "bg-transparent border-main-100 border"))}>
+
+                { !token ? 
+                <Button 
+                    className={twMerge(clsx(location.pathname === "/" && "bg-transparent border-main-100 border"))}
+                    onClick={() => setModal(true, <Login /> )}
+                    >
+                Sign in
+                </Button> : <Button className={twMerge(clsx(location.pathname === "/" && "bg-transparent border-main-100 border"))}>
                     Add Listing
-                </Button>
+                </Button>}
+
             </div>
         </div>
     )
