@@ -1,0 +1,6 @@
+POST http://locahost:5000/api/auth
+Content-Type: application/json
+
+{
+    
+}

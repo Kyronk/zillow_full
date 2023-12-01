@@ -5,11 +5,27 @@ const Joi = require("joi")
 const ctrls = require("../controllers/auth");
 const { stringReq, numberReq } = require("../middlewares/joiSchema");
 
+// {
+    // validateDto(Joi.object({
+    //     password: stringReq,
+    //     name: stringReq,
+    //     phone: numberReq
+    // })),
+// }
 router.post("/register", validateDto(Joi.object({
     password: stringReq,
     name: stringReq,
     phone: numberReq
-})), ctrls.register );
+})),ctrls.register);
+
+router.post("/test", ctrls.testRegister);
+
+// router.get("/test-get")
+
+router.get("/", (req, res ) => {
+    return res.status(200).json({mess: "okk"})
+});
 
 
-module.exports = router
+
+module.exports = router;
