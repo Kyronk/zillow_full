@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react'
 
 import clsx from 'clsx';
+import { toast } from 'react-toastify';
 
-
-import { InputForm, Button } from "../index";
+import { InputForm, Button, InputRadio } from "../index";
 import { useForm } from 'react-hook-form';
+import { apiRegister, apiSignIn } from '../../apis/auth';
+
+import Swal from "sweetalert2";
+import { useAppStore } from '../../store/useAppStore';
+import { useUserStore } from '../../store/useUserStore';
 
 const Login = () => {
+
+    const { setModal } = useAppStore();
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const [variant, setVariant] = useState("LOGIN");
     const { 
@@ -16,10 +25,46 @@ const Login = () => {
         reset,
     } = useForm();
 
-    // console.log(errors);
+    const {token, setToken} = useUserStore();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    console.log(token )
+    // console.log(errors);
+    const toggleLoading = () => setIsLoading(prev => !prev);
+
+    const onSubmit = async (data) => {
+        if(variant === "REGISTER") {
+            // toggleLoading();
+            setIsLoading(true);
+            const response = await apiRegister(data);
+            
+            // toggleLoading();
+            setIsLoading(false);
+            console.log(response);
+            if(response.success) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Congrats!",
+                    text: response.mes,
+                    showConfirmButton: true,
+                    confirmButton: "Go sign in"
+                }).then(({ isConfirmed }) => {
+                    if(isConfirmed) setVariant("LOGIN")
+                })
+            } else toast.error(response.mes)
+        }
+        // console.log(data);
+        if(variant === "LOGIN") {
+            // console.log(data);
+            const {name, role, ...payload} = data;
+            const response = await apiSignIn(data);
+            if(response.success){
+                toast.success(response.mes);
+                setToken(response.accessToken);
+                setModal(false, null);
+
+            }else toast.error(response.mes);
+        }
+
     }
 
     useEffect(() => {
@@ -51,8 +96,14 @@ const Login = () => {
                     label="Phone Number"
                     inputClassname="rounded-md"
                     register={register} 
-                    id="number"
-                    validate={{required: 'This field cannot empty.'}}
+                    id="phone"
+                    validate={{
+                        required: 'This field cannot empty.',
+                        pattern: {
+                            value: /(0[3|5|7|8|9])+([0-9]{8})\b/,
+                            message: "Phone number invalid"
+                        }
+                    }}
                     errors={errors}
                     />
 
@@ -79,6 +130,20 @@ const Login = () => {
                         />
                         
                 }
+                {variant === "REGISTER" && (
+                    <InputRadio 
+                    label="Type account: "
+                    register={register} 
+                    id="role" 
+                    validate={{required: "Name must be fille"}}
+                    errors={errors}
+                    option={[
+                        {id:1, label: "User", value: "USER"},
+                        {id:2, label: "Agent", value: "AGENT"},
+                        // {id:3, label: "ADMIN", value: "ADMIN"}
+                    ]}
+                />
+                )}
 
                 <Button 
                     onClick={handleSubmit(onSubmit)}
