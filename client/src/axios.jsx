@@ -6,19 +6,20 @@ const instance = axios.create({
 });
 
 // Add a request interceptor
-instance.interceptors.request.use(function (config) {
-    let token = window.localStorage.getItem("rest06");
+instance.interceptors.request.use(
+    function (config) {
+        let token = window.localStorage.getItem("rest06");
 
-    if(token) token = JSON.parse(token);
+        if(token) token = JSON.parse(token);
 
-    if(token.state?.token) config.headers = {
-        Authorization: token.state?.token,
-        // Authorization: `Bearer ${token.state?.token}` // customize lại token trong trường hợp nó thiếu chữ Bearer (do backend không gắn)
+        if(token.state?.token) config.headers = {
+            Authorization: token.state?.token,
+            // Authorization: `Bearer ${token.state?.token}` // customize lại token trong trường hợp nó thiếu chữ Bearer (do backend không gắn)
 
-    }
-    // console.log(token);
-    // Do something before request is sent
-    return config;
+        }
+        // console.log(token);
+        // Do something before request is sent
+        return config;
 }, function (error) {
     
     // Do something with request error

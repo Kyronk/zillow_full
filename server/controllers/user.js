@@ -20,7 +20,7 @@ const getCurrent = asyncHandler( async(req, res) => {
         mes: response ? "Got" : "Cannot get user. ",
         currentUser: response
 
-    })
+    }) 
 
 });
 

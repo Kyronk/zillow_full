@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
     if(!token) return throwErrorWithStatus(401, 'Creds not provide', res,next);
 
     const rawToken = req.headers?.authorization?.split(" ")[1];
-    console.log(">>> check raw token", rawToken);
+    // console.log(">>> check raw token", rawToken);
     jwt.verify(rawToken, process.env.JWT_SECRET, (err, decode) => {
         if(err) return throwErrorWithStatus(401, 'creds invalid', res, next);
         req.user = decode;

@@ -2,38 +2,31 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('Users', {
+        await queryInterface.createTable('UserMedias', {
             id: {
                 allowNull: false,
-                // autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.UUID,
-                // defaultValue: Sequelize.UUIDV4,
                 defaultValue: Sequelize.literal("gen_random_uuid()"),
             },
-            name: {
-                type: Sequelize.STRING
+            uuid: {
+                type: Sequelize.UUID,
+                // allowNull: false,
+                references: {
+                    model: "Users",
+                    key: "id"
+                }
             },
-            phone: {
+            provider: {
                 type: Sequelize.STRING,
-                unique: true, // duy nhất
+                allowNull: false
             },
-            email: {
+            link: {
                 type: Sequelize.STRING,
-                unique: true
+                allowNull: false
             },
-            address: {
-                type: Sequelize.STRING
-            },
-            password: {
-                type: Sequelize.STRING
-            },
-            role: {
-                type: Sequelize.ENUM(["ADMIN", "AGENT", "USER"]),
-                dialectTypes: "USER"               
-            },
-            avatar: {
-                type: Sequelize.STRING
+            icon: {
+                type: Sequelize.STRING,
             },
             createdAt: {
                 allowNull: false,
@@ -46,6 +39,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('Users');
+        await queryInterface.dropTable('UserMedias');
     }
 };

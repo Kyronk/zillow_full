@@ -57,7 +57,7 @@ const signIn = asyncHandler( async(req, res, next) => {
         const { password, phone } = req.body;
         const userLogin = await db.User.findOne({
             where: {phone: phone},
-        })
+        });
 
         if(!userLogin) throwErrorWithStatus(401, "User with that phone have not registered.", res, next);
         const isMachingPassword = bcrypt.compareSync(password, userLogin.password);
@@ -78,10 +78,6 @@ const signIn = asyncHandler( async(req, res, next) => {
         console.log(error)
     }
 });
-
-
-
-
 
 
 
