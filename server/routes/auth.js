@@ -3,7 +3,7 @@ const validateDto = require("../middlewares/validation");
 const Joi = require("joi")
 
 const ctrls = require("../controllers/auth");
-const { stringReq, numberReq } = require("../middlewares/joiSchema");
+const { stringReq, numberReq, string } = require("../middlewares/joiSchema");
 
 // {
     // validateDto(Joi.object({
@@ -12,11 +12,11 @@ const { stringReq, numberReq } = require("../middlewares/joiSchema");
     //     phone: numberReq
     // })),
 // }
-router.post("/register", validateDto(Joi.object({
+router.post("/signup", validateDto(Joi.object({
     password: stringReq,
     name: stringReq,
     phone: numberReq,
-    role: stringReq
+    roleCode: string
 })),ctrls.register);
 
 router.post("/signin", validateDto(Joi.object({

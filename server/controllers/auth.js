@@ -15,7 +15,7 @@ const register = asyncHandler( async(req, res) => {
 
     // client = api/user/:id => req.params
     
-    const { password, name, phone, role } = req.body;
+    const { password, name, phone, roleCode } = req.body;
     // console.log(">> check data:", {password, name, phone, role} )
     // console.log(req.query);
     // console.log(req.body)
@@ -27,7 +27,7 @@ const register = asyncHandler( async(req, res) => {
             name: name,
             password: password,
             phone: phone,
-            role: role
+            roleCode: roleCode
         }
     })
     // console.log(response);
@@ -59,13 +59,16 @@ const signIn = asyncHandler( async(req, res, next) => {
             where: {phone: phone},
         });
 
-        if(!userLogin) throwErrorWithStatus(401, "User with that phone have not registered.", res, next);
+        if(!userLogin) return throwErrorWithStatus(401, "User with that phone have not registered.", res, next);
         const isMachingPassword = bcrypt.compareSync(password, userLogin.password);
-        if(!isMachingPassword) throwErrorWithStatus(401, "Password is Wrong.", res, next);
+        if(!isMachingPassword) return throwErrorWithStatus(401, "Password is Wrong.", res, next);
 
         // console.log(response);
 
-        const token = jwt.sign({uid: userLogin.id, role: userLogin.role}, process.env.JWT_SECRET, 
+        const token = jwt.sign({
+            uid: userLogin.id, 
+            roleCode: userLogin.roleCode
+        }, process.env.JWT_SECRET, 
             {expiresIn: "7d"})
         return res.json({
             // success: response[1],
