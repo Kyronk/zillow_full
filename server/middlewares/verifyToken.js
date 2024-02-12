@@ -1,4 +1,3 @@
-
 const { throwErrorWithStatus } = require("./errorHandler");
 const jwt = require("jsonwebtoken");
 const db = require("../models");
@@ -21,17 +20,17 @@ const verifyToken = (req, res, next) => {
     })
 }
 
-const isOwner = (req, res, next) => {
-    const {roleCode} = req.user;
-    if (roleCode === "ROL7" || roleCode === "ROL5") {
-        return throwErrorWithStatus(401, "Bạn không có quyền truy cập.", res, next);
-    } 
-    next()
-}
-
 const isAgent = (req, res, next) => {
     const {roleCode} = req.user;
-    if (roleCode === "ROL7") {
+    if (roleCode !== "ROL1" || roleCode === "ROL3" || roleCode !== "ROL5") {
+        return throwErrorWithStatus(401, "Bạn không có quyền truy cập.", res, next);
+    } 
+    next();
+}
+
+const isOwner = (req, res, next) => {
+    const {roleCode} = req.user;
+    if (roleCode !== "ROL1" || roleCode === "ROL3") {
         return throwErrorWithStatus(401, "Bạn không có quyền truy cập.", res, next);
     } 
     next()

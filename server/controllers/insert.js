@@ -19,10 +19,13 @@ const initRoles = asyncHandler( async(req, res) => {
         success: Boolean(response),
         mes: response ? "Inserted." : "Some thing went wrong. ",
         // currentUser: response
-
     }) 
-
 });
+
+// const initPropertyType = asyncHandler( async (req, res) => {
+
+
+// });
 
 module.exports = {
     initRoles,
