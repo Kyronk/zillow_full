@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         email: DataTypes.STRING
     }, {
         sequelize,
-        modelName: 'Property-feature',
+        modelName: 'PropertyFeature',
     });
     return PropertyFeature;
 };

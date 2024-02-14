@@ -14,8 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         }
     }
     UserMedia.init({
-        // userId : uid
-        // gói thư viện uuid là unique user id
         uid: DataTypes.UUID,
         provider: DataTypes.STRING,
         link: DataTypes.STRING,

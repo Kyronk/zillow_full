@@ -22,6 +22,16 @@ const initRoles = asyncHandler( async(req, res) => {
     }) 
 });
 
+const testTable = asyncHandler( async (req, res) => { 
+    const response = await db.UserMedia.findAll();
+    console.log(response);
+
+    return res.json({
+        success: response? "true": "false",
+        response
+    })
+})
+
 // const initPropertyType = asyncHandler( async (req, res) => {
 
 
@@ -29,4 +39,5 @@ const initRoles = asyncHandler( async(req, res) => {
 
 module.exports = {
     initRoles,
+    testTable
 }

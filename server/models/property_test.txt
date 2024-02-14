@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
             values: ["PENDING", "CANCEL", "APPROVED"]
         },
         isAvailable: DataTypes.BOOLEAN,
+
         /**
          *  # luồng hoạt động của khúc trường này
          * - đây là chỗ để lưu ảnh của sản phẩm
@@ -57,6 +58,7 @@ module.exports = (sequelize, DataTypes) => {
         propertySize: DataTypes.FLOAT,
         yearBuild: DataTypes.INTEGER,
         owner: DataTypes.UUID,
+
     }, {
         sequelize,
         modelName: 'Property',
