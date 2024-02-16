@@ -10,11 +10,21 @@ const { verifyToken, isAdmin } = require("../middlewares/verifyToken");
 router.post("/", 
     verifyToken, isAdmin, 
     validateDto(Joi.object({
-    name: stringReq,
-    description: stringReq,
-    image: stringReq,
-})) ,
-ctrls.createNewPropertyType);
+        name: stringReq,
+        description: stringReq,
+        image: stringReq,
+    })) ,
+    ctrls.createNewPropertyType);
 
 router.get("/", ctrls.getPropertyTypes);
+
+router.patch("/:id", verifyToken, isAdmin,
+    validateDto(Joi.object({
+        name: string,
+        description: string,
+        image: string,
+    })) ,
+    ctrls.updatePropertyType);
+
+router.delete("/:id", verifyToken, isAdmin, ctrls.removePropertyType);
 module.exports = router;

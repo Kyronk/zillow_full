@@ -3,9 +3,11 @@ require('dotenv').config();
 const cors = require("cors");
 const dbconn = require("./config/dbconnect");
 
+require("./config/redis.config");
 const initRoutes = require("./routes")
-
 const app = express();
+
+
 
 
 app.use(cors({
