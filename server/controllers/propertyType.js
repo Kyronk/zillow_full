@@ -77,6 +77,15 @@ const getPropertyTypes = asyncHandler(async (req, res) => {
         // const response = await db.PropertyType.findAll(options);
 
         // const response = await db.PropertyType.findAll(options);
+        const alreadyGetAll = await redis.get("get-property-type");
+        if(alreadyGetAll) {
+            return res.json({
+                success: true,
+                mes: "Got",
+                propertyTypes: JSON.parse(alreadyGetAll),
+            })
+        }
+
         const response = await db.PropertyType.findAll({
             where: query,
             ...options,

@@ -7,6 +7,10 @@ const { stringReq, numberReq, string } = require("../middlewares/joiSchema");
 
 const { verifyToken, isAdmin } = require("../middlewares/verifyToken");
 
+const rateLimit = require("../middlewares/rateLimiter");
+
+router.use(rateLimit)
+
 router.post("/", 
     verifyToken, isAdmin, 
     validateDto(Joi.object({
