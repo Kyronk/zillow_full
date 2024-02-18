@@ -14,7 +14,7 @@ import { useAppStore } from '../../store/useAppStore';
 
 const Navigation = ({location}) => {
 
-    const {token} = useUserStore();
+    const {current} = useUserStore();
     const { setModal} = useAppStore();
     // console.log("check ", setModal);
 
@@ -38,7 +38,7 @@ const Navigation = ({location}) => {
                     </NavLink>
                 ))}
 
-                { !token ? 
+                { !current ? 
                 <Button 
                     className={twMerge(clsx(location.pathname === "/" && "bg-transparent border-main-100 border"))}
                     onClick={() => setModal(true, <Login /> )}

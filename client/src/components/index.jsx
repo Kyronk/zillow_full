@@ -5,6 +5,7 @@ export {default as Modal} from "./commons/Modal";
 export {default as Login} from "./login/Login";
 export {default as InputForm} from "./inputs/InputForm";
 export {default as InputRadio} from "./inputs/InputRadio";
+export {default as AdminSidebar } from "./sidebars/AdminSidebar";
 
 
 

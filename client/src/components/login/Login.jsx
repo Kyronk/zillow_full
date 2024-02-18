@@ -100,7 +100,7 @@ const Login = () => {
                     validate={{
                         required: 'This field cannot empty.',
                         pattern: {
-                            value: /(0[3|5|7|8|9])+([0-9]{8})\b/,
+                            value: /(0[1|3|5|7|8|9])+([0-9]{8})\b/,
                             message: "Phone number invalid"
                         }
                     }}
@@ -134,7 +134,7 @@ const Login = () => {
                     <InputRadio 
                     label="Type account: "
                     register={register} 
-                    id="role" 
+                    id="roleCode" 
                     validate={{required: "Name must be fille"}}
                     errors={errors}
                     option={[

@@ -13,6 +13,7 @@ import { Modal } from './components';
 // redux zustand
 import { useAppStore } from "./store/useAppStore";
 import { useUserStore } from './store/useUserStore';
+import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
 
 
 
@@ -25,7 +26,7 @@ function App() {
 
     // const getToken = window.localStorage.getItem("rest06");
     // console.log(getToken)
-    console.log(current)
+    // console.log(current)
     useEffect(() => {
         getCurrent()
     }, [token])
@@ -45,6 +46,16 @@ function App() {
 
 
                 </Route>
+
+
+                {/* Admin routes */}
+                <Route path={path.ADMIN_LAYOUT} element={<AdminLayout />}>
+                    <Route path={path.DASHBOARD} element={<Dashboard />} />
+                    <Route path={path.CREATE_PROPERTY_TYPE} element={<Create />}/>
+                    <Route path={path.MANAGER_PROPERTY_TYPE} element={<ManagerPropertyType />}/>
+
+                </Route>
+
             </Routes>
 
             <ToastContainer
