@@ -31,15 +31,14 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            roleCode: {
-                type: Sequelize.STRING,
-                references: {
-                    model: "Roles",
-                    key: "code"
-                },
-                // allowNull: false  
-                defaultValue: "ROL7"            
-            },
+            // roleCode: {
+            //     type: Sequelize.TEXT,
+            //     references: {
+            //         model: "Roles",
+            //         key: "code"
+            //     },
+            //     defaultValue: "ROL7"            
+            // },
             avatar: {
                 type: Sequelize.STRING
             },

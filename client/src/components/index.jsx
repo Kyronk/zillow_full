@@ -5,7 +5,12 @@ export {default as Modal} from "./commons/Modal";
 export {default as Login} from "./login/Login";
 export {default as InputForm} from "./inputs/InputForm";
 export {default as InputRadio} from "./inputs/InputRadio";
+export {default as InputText } from "./inputs/InputText";
+export {default as Textarea } from "./inputs/Textarea";
+export {default as InputFile } from "./inputs/InputFile";
 export {default as AdminSidebar } from "./sidebars/AdminSidebar";
+export {default as Title } from "./commons/Title";
+
 
 
 

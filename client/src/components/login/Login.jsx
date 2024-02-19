@@ -25,9 +25,9 @@ const Login = () => {
         reset,
     } = useForm();
 
-    const {token, setToken} = useUserStore();
+    const {token, setToken, roles } = useUserStore();
 
-    console.log(token )
+    // console.log(token );
     // console.log(errors);
     const toggleLoading = () => setIsLoading(prev => !prev);
 
@@ -128,7 +128,6 @@ const Login = () => {
                         validate={{required: "Name must be fille"}}
                         errors={errors}
                         />
-                        
                 }
                 {variant === "REGISTER" && (
                     <InputRadio 
@@ -137,11 +136,13 @@ const Login = () => {
                     id="roleCode" 
                     validate={{required: "Name must be fille"}}
                     errors={errors}
-                    option={[
-                        {id:1, label: "User", value: "USER"},
-                        {id:2, label: "Agent", value: "AGENT"},
-                        // {id:3, label: "ADMIN", value: "ADMIN"}
-                    ]}
+                    optionClassname={"grid grid-cols-3 gap-4"}
+                    // option={[
+                    //     {id:1, label: "User", value: "USER"},
+                    //     {id:2, label: "Agent", value: "AGENT"},
+                    //     {id:3, label: "ADMIN", value: "ADMIN"}
+                    // ]}
+                    option={roles?.filter(el => el.code !== "ROL1")?.map(el => ({ label: el.value, value: el.code}))}
                 />
                 )}
 

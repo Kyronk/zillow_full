@@ -5,12 +5,12 @@ import { AdminSidebar } from '../../components'
 
 const AdminLayout = () => {
     return (
-        <main className="grid grid-cols-12">
+        <main className="grid grid-cols-12 ">
             <div className="col-span-2 bg-main-500 text-white h-full max-h-screen overflow-y-auto">
                 <AdminSidebar />
             </div>
 
-            <div className="col-span-10 bg-gray-300">
+            <div className="col-span-10 h-full max-h-screen overflow-y-auto">
                 <Outlet />
             </div>
         </main>

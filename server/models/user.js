@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            User.hasMany(models.User_Role, { foreignKey: "userId", as: "userRoles"})
         }
     }
     User.init({
@@ -28,7 +29,17 @@ module.exports = (sequelize, DataTypes) => {
                 this.setDataValue("password", bcrypt.hashSync(value, salt))
             }
         },
-        roleCode:  DataTypes.STRING,
+        // roleCode:  DataTypes.STRING,
+        // roleCode: {
+        //     type: DataTypes.TEXT,
+        //     get() {
+        //         const rawValue = this.getDataValue("roleCode");
+        //         return rawValue? JSON.parse(rawValue) : [];
+        //     },
+        //     set(value) {
+        //         this.setDataValue("roleCode", JSON.stringify(value))
+        //     },
+        // },
         avatar: DataTypes.STRING,
     }, {
         sequelize,

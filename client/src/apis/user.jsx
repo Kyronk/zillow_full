@@ -6,3 +6,7 @@ export const apiGetCurrent = () => axios({
     // dataz
 })
 
+export const apiGetRoles = () => axios({
+    url: "/user/roles",
+    method: "get"
+})

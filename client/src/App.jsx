@@ -14,6 +14,7 @@ import { Modal } from './components';
 import { useAppStore } from "./store/useAppStore";
 import { useUserStore } from './store/useUserStore';
 import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
+// import { getRoles } from '../../server/controllers/user';
 
 
 
@@ -22,13 +23,14 @@ function App() {
 
     const { isShowModal, contentModal } = useAppStore()
     // console.log("check", isShowModal, contentModal)
-    const {getCurrent, current, token} = useUserStore();
+    const {getCurrent, current, token, getRoles} = useUserStore();
 
     // const getToken = window.localStorage.getItem("rest06");
     // console.log(getToken)
     // console.log(current)
     useEffect(() => {
-        getCurrent()
+        getCurrent();
+        getRoles();
     }, [token])
     return (
 

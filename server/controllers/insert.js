@@ -23,7 +23,7 @@ const initRoles = asyncHandler( async(req, res) => {
 });
 
 const testTable = asyncHandler( async (req, res) => { 
-    const response = await db.UserMedia.findAll();
+    const response = await db.User_Role.findAll();
     console.log(response);
 
     return res.json({
