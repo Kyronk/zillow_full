@@ -24,15 +24,15 @@ const createNewPropertyType = asyncHandler(async (req, res) => {
         // mes: response ? "Got" : "Cannot get user. ",
         // currentUser: response
         success: response[1],
-        message: response[1] ? "Created" : "Name property type duplicated",
-        propertyType: response[0],
-        response
+        mes: response[1] ? "Created" : "Name property type duplicated",
+        // propertyType: response[0],
+        // response
     })
 });
 
 const getPropertyTypes = asyncHandler(async (req, res) => {
     const { limit, page, fields, name, sort, ...query } = req.query;
-    console.log(query)
+    // console.log(query)
     const options = {};
     // limit fields
     if (fields) {
@@ -61,7 +61,7 @@ const getPropertyTypes = asyncHandler(async (req, res) => {
     if ( sort ) {
         console.log(sort);
         const order = sort.split(",").map((el => el.startsWith("-")? [el.replace("-",""), "DESC"] : [el, "ASC"]));
-        console.log(order);
+        // console.log(order);
         // const isExclude = order.some((el) => el.startsWith("-"));
         // if (isExclude) {
             options.order = order;

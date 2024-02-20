@@ -12,7 +12,8 @@ const rateLimit = require("../middlewares/rateLimiter");
 router.use(rateLimit)
 
 router.post("/", 
-    verifyToken, isAdmin, 
+    verifyToken, 
+    // isAdmin, 
     validateDto(Joi.object({
         name: stringReq,
         description: stringReq,

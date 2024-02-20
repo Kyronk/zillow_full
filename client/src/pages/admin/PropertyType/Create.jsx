@@ -2,13 +2,48 @@ import React from 'react'
 import { Button, Title, InputForm, InputText, Textarea, InputFile } from '../../../components'
 import { CiCirclePlus } from "react-icons/ci";
 import { useForm } from 'react-hook-form';
+import { apiCreateNewPropertyType } from '../../../apis/propertyType';
+import { toast } from "react-toastify";
 
 const Create = () => {
 
-    const { register, formState: {errors}, handleSubmit, reset, setValue} = useForm();
+    const { 
+        register, 
+        formState: {errors}, 
+        handleSubmit, 
+        reset, 
+        setValue,
+        setError,
+        clearErrors
+    } = useForm();
 
-    const handleCreateNewProperty = (data) => {
+    const handleCreateNewProperty = async (data) => {
         console.log(data);
+        // const resp = await 
+        if (!data.images || data.images.length === 0 ) {
+            setError("images", {
+                message: "this field cannot empty.",
+                type: "require"
+            })
+        } else {
+            const {images, ...payload} = data;
+            // const response = await apiCreateNewPropertyType(data);
+            const response = await apiCreateNewPropertyType({...payload, image: images[0]});
+            
+            if (response.success) {
+                toast.success(response.mes);
+                reset();
+                getImages([]);
+            } else toast.error(response.mes);
+        }
+    };
+
+    const getImages = (images) => {
+        if(images && images.length > 0) clearErrors("images");
+        setValue(
+            "images",
+            images?.map((el) => el.path)
+        )
     }
 
     return (
@@ -54,6 +89,9 @@ const Create = () => {
                     errors= {errors}
                     validate={{ required: "this field cannot empty."}}
                     label="Image"
+                    multiple={true}
+                    // getImages={images => setValue("images", images?.map(el => el.path))}
+                    getImages={getImages}
                 />
 
                 

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import { adminSidebar } from '../../utils/constants'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { FaCaretRight } from "react-icons/fa";
@@ -43,7 +43,7 @@ const AdminSidebar = () => {
                             </NavLink>
                         )}
 
-                        {el.type === "PARENT" &&
+                        {el.type === "PARENT" && (
                             <>
                                 <div 
                                     onClick={() => handleActiveTabs(el.id)}
@@ -76,11 +76,12 @@ const AdminSidebar = () => {
                                 </div>
 
                             }
-                                
-
-                            </>
+                            </>)
                         }
-                    </Fragment>)
+
+                        
+                    </Fragment>
+                    )
                 }
             </div>
         </div>
