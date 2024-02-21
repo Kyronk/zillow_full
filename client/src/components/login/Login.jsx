@@ -10,6 +10,11 @@ import { apiRegister, apiSignIn } from '../../apis/auth';
 import Swal from "sweetalert2";
 import { useAppStore } from '../../store/useAppStore';
 import { useUserStore } from '../../store/useUserStore';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+
+
+import auth from '../../utils/firebaseConfig';
+
 
 const Login = () => {
 
@@ -31,26 +36,65 @@ const Login = () => {
     // console.log(errors);
     const toggleLoading = () => setIsLoading(prev => !prev);
 
+    const handleCaptchaVerify = () => {
+        // console.log(window.recaptchVerify);
+        if (!window.recaptchVerify) {
+            window.recaptchVerify = new RecaptchaVerifier(
+                auth, 
+                "recaptcha-verifier"
+            //     , 
+            //     {
+            //         size: "invisible",
+            //         callback: (response) => {
+            //             console.log({callback: response})
+            //         },
+            //         "expired-callback" : (response) => {
+            //             console.log({expired: response})
+            //         }
+            // }
+            )
+        }
+    }
+
+    const handleSendOTP = (phone) => {
+        handleCaptchaVerify()
+        const verifier = window.recaptchVerify;
+        const formatPhone = "+84" + phone.slice(1)
+        signInWithPhoneNumber(auth, formatPhone, verifier).then((result) => {
+            // console.log(result);
+            toast.success("Sent otp  your phone. please check code in your phone");
+        }).catch((error) => {
+            // console.log(error);
+            toast.error("Something went wrong.");
+        })
+    }
+
     const onSubmit = async (data) => {
         if(variant === "REGISTER") {
+            // console.log(data)
+            if (data?.roleCode !== "ROL7") {
+                // logic verify phone number
+                // handleCaptchaVerify();
+                handleSendOTP(data.phone);
+            }
             // toggleLoading();
-            setIsLoading(true);
-            const response = await apiRegister(data);
+            // setIsLoading(true);
+            // const response = await apiRegister(data);
             
-            // toggleLoading();
-            setIsLoading(false);
-            console.log(response);
-            if(response.success) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Congrats!",
-                    text: response.mes,
-                    showConfirmButton: true,
-                    confirmButton: "Go sign in"
-                }).then(({ isConfirmed }) => {
-                    if(isConfirmed) setVariant("LOGIN")
-                })
-            } else toast.error(response.mes)
+            // // toggleLoading();
+            // setIsLoading(false);
+            // console.log(response);
+            // if(response.success) {
+            //     Swal.fire({
+            //         icon: "success",
+            //         title: "Congrats!",
+            //         text: response.mes,
+            //         showConfirmButton: true,
+            //         confirmButton: "Go sign in"
+            //     }).then(({ isConfirmed }) => {
+            //         if(isConfirmed) setVariant("LOGIN")
+            //     })
+            // } else toast.error(response.mes)
         }
         // console.log(data);
         if(variant === "LOGIN") {
@@ -83,6 +127,7 @@ const Login = () => {
                     onClick={() => setVariant("LOGIN")}
                     className={clsx(variant === "LOGIN" && "border-b-4 border-blue-500", "cursor-pointer")}
                 > Login </span>
+                <div id="recaptcha-verifier"></div>
                 <span
                     onClick={() => setVariant("REGISTER")}
                     className={clsx(variant === "REGISTER" && "border-b-4 border-blue-700", "cursor-pointer")}

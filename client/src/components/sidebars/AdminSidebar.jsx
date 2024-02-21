@@ -5,7 +5,8 @@ import clsx from 'clsx'
 
 import { FaCaretRight } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
-
+import { FaHouse } from "react-icons/fa6";
+import { RiShareForwardFill } from "react-icons/ri";
 
 const AdminSidebar = () => {
     const [activeTabs, setActiveTabs] = useState([]);
@@ -78,11 +79,34 @@ const AdminSidebar = () => {
                             }
                             </>)
                         }
+{/* 
 
+                        <Link
+                                className={clsx(
+                                        "flex items-center gap-2 hover:bg-main-700 hover:border-r-4 border-orange-700 px-4 py-3",
+                                    )
+                                }
+                                to={"/"}
+                            >
+                                <span className='select-none'>Home page</span>
+                            </Link> */}
+                            
                         
                     </Fragment>
                     )
                 }
+
+                            <Link
+                                className={clsx(
+                                        "flex items-center gap-2 hover:bg-main-700 hover:border-r-4 border-orange-700 px-4 py-3",
+                                        // isActive && "bg-main-700 border-r-4"
+                                    )
+                                }
+                                to={"/"}
+                            >
+                                <span className='text-2xl'> <RiShareForwardFill size={20} /> </span>
+                                <span className='select-none'>Go homepage</span>
+                            </Link>
             </div>
         </div>
     )
