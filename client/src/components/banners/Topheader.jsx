@@ -9,8 +9,12 @@ import withRouter from '../../hocs/withRouter';
 
 import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
+import { useAppStore } from '../../store/useAppStore';
+import { useUserStore } from '../../store/useUserStore';
 const Topheader = ({location}) => {
 
+    const { current } = useUserStore();
+    console.log(current)
     // console.log(location.pathname)
 
     return (
@@ -38,6 +42,14 @@ const Topheader = ({location}) => {
                         <FaPhone />
                         <span>123-456 7890</span>
                     </span>
+                </div>
+
+                <div className='flex items-center gap-4 pl-8 border-l border-main-400'>
+                    <div className='flex flex-col gap-2'>
+                        <span>{current?.name}</span>
+                        {/* <span>ID: # <span>{current?.id}</span></span> */}
+                    </div>
+                    <img src={current?.image || './user.svg'} alt="avatar" className='w-8 h-8 object-cover rounded-full' />
                 </div>
             </div>
         </div>

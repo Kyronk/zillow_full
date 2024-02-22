@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import clsx from 'clsx';
 import { toast } from 'react-toastify';
 
-import { InputForm, Button, InputRadio } from "../index";
+import { InputForm, Button, InputRadio, OtpVerifier } from "../index";
 import { useForm } from 'react-hook-form';
 import { apiRegister, apiSignIn } from '../../apis/auth';
 
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { useAppStore } from '../../store/useAppStore';
 import { useUserStore } from '../../store/useUserStore';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-
+import { twMerge } from "tailwind-merge"; 
 
 import auth from '../../utils/firebaseConfig';
 
@@ -23,6 +23,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const [variant, setVariant] = useState("LOGIN");
+    const [isShowConformOTP, setIsShowConformOTP] = useState(false);
     const { 
         register, 
         formState: { errors }, 
@@ -41,30 +42,36 @@ const Login = () => {
         if (!window.recaptchVerify) {
             window.recaptchVerify = new RecaptchaVerifier(
                 auth, 
-                "recaptcha-verifier"
-            //     , 
-            //     {
-            //         size: "invisible",
-            //         callback: (response) => {
-            //             console.log({callback: response})
-            //         },
-            //         "expired-callback" : (response) => {
-            //             console.log({expired: response})
-            //         }
-            // }
+                "recaptcha-verifier", 
+                {
+                    size: "invisible",
+                    callback: (response) => {
+                        // console.log({callback: response})
+                    },
+                    "expired-callback" : (response) => {
+                        console.log({expired: response})
+                    }
+            }
             )
         }
     }
 
     const handleSendOTP = (phone) => {
-        handleCaptchaVerify()
+        setIsLoading(true);
+        handleCaptchaVerify();
         const verifier = window.recaptchVerify;
         const formatPhone = "+84" + phone.slice(1)
         signInWithPhoneNumber(auth, formatPhone, verifier).then((result) => {
+            setIsLoading(false);
             // console.log(result);
+            window.confirmationResult = result;
             toast.success("Sent otp  your phone. please check code in your phone");
+            setIsShowConformOTP(true);
+
         }).catch((error) => {
+            setIsLoading(false);
             // console.log(error);
+            window.isSendOTP = false;
             toast.error("Something went wrong.");
         })
     }
@@ -108,7 +115,28 @@ const Login = () => {
 
             }else toast.error(response.mes);
         }
+    }
 
+    const handleRegister = async (data) => {
+        const response = await apiRegister(data);
+        // toggleLoading();
+            // setIsLoading(false);
+            // console.log(response);
+        if(response.success) {
+            Swal.fire({
+                icon: "success",
+                title: "Congrats!",
+                text: response.mes,
+                showConfirmButton: true,
+                confirmButton: "Go sign in"
+            }).then(({ isConfirmed }) => {
+                if(isConfirmed) {
+                    setVariant("LOGIN");
+                    setIsShowConformOTP(false);
+                
+                }
+            })
+        } else toast.error(response.mes)
     }
 
     useEffect(() => {
@@ -117,12 +145,26 @@ const Login = () => {
 
     return (
         <div
-            className='bg-white text-lg rounded-md px-6 py-8 w-[500px] flex flex-col items-center gap-6'
             onClick={(e) => e.stopPropagation()}
+            className={twMerge(
+                clsx("bg-white relative text-lg rounded-md px-6 py-8 w-[600px] flex flex-col items-center gap-6",
+                isShowConformOTP && "w-[600px] h-[280px]")
+            )}
         >
+            {isShowConformOTP && ( <div
+                className='absolute inset-0 bg-white rounded-md'>
+                <OtpVerifier 
+                    callback={handleSubmit(handleRegister)}
+                />
+            </div>)}
+            {/* <div
+                className='absolute inset-0 bg-white rounded-md'>
+                <OtpVerifier />
+            </div> */}
+
             <h1 className='text-5xl font-dance font-semibold tracking-tight'>Welcome to Zillow</h1>
 
-            <div className="flex border-b w-full justify-start gap-6">
+            <div className={twMerge(clsx("flex border-b w-full justify-start gap-6", isShowConformOTP && "hidden"))}>
                 <span
                     onClick={() => setVariant("LOGIN")}
                     className={clsx(variant === "LOGIN" && "border-b-4 border-blue-500", "cursor-pointer")}
@@ -135,7 +177,7 @@ const Login = () => {
             </div>
 
 
-            <form className="flex flex-col px-4 w-full ">
+            <form className={twMerge(clsx("flex flex-col px-4 w-full", isShowConformOTP && "hidden"))}>
                 <InputForm
                     placeholder="Enter your phone"
                     label="Phone Number"
@@ -192,6 +234,7 @@ const Login = () => {
                 )}
 
                 <Button 
+                    disabled={isLoading}
                     onClick={handleSubmit(onSubmit)}
                     className="py-2 my-6">
                     {variant === "LOGIN" ? "Sign in" : "Register"}

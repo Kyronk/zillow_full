@@ -17,6 +17,7 @@ const Navigation = ({location}) => {
     const {current} = useUserStore();
     const { setModal} = useAppStore();
     // console.log("check ", setModal);
+    // console.log(current)
 
     return (
         <div className={twMerge(clsx("h-[85px] w-full bg-transparent flex items-center justify-between fixed z-50 top-[85px] px-[100px] py-[26px]",

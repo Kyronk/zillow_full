@@ -17,6 +17,10 @@ body {
     /* font-family: 'Karla', sans-serif; */
     /* font-family: 'Agbalumo', sans-serif; */
 }
+
+.otp-item {
+    width: 5rem !important;
+}
 /* 
 :root {
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
