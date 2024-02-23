@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { MdOutlineEmail } from "react-icons/md";
 import { FaPhone } from "react-icons/fa6";
 import { RiFacebookFill } from "react-icons/ri";
@@ -11,11 +11,29 @@ import clsx from "clsx"
 import {twMerge} from "tailwind-merge"
 import { useAppStore } from '../../store/useAppStore';
 import { useUserStore } from '../../store/useUserStore';
+import { showOption } from '../../utils/constants';
+import { Link } from 'react-router-dom';
 const Topheader = ({location}) => {
 
-    const { current } = useUserStore();
-    console.log(current)
+    const { current, logout } = useUserStore();
+    // console.log(current)
+    const optionBox = useRef();
+    const [isShowOption, setIsShowOption] = useState(false);
     // console.log(location.pathname)
+    useEffect(() => {
+        const handleOnClick = (e) => {
+            // console.log(optionBox.current.contains(e.target));
+            if(optionBox.current.contains(e.target)) {
+
+                setIsShowOption(true);
+            } else setIsShowOption(false);
+        }
+
+        window.addEventListener("click", handleOnClick);
+        return () => {
+            window.removeEventListener("click", handleOnClick);
+        };
+    }, [])
 
     return (
         <div className={twMerge(
@@ -44,13 +62,35 @@ const Topheader = ({location}) => {
                     </span>
                 </div>
 
-                <div className='flex items-center gap-4 pl-8 border-l border-main-400'>
+                {current && 
+                <div 
+                    ref={optionBox}
+                    // onClick={() => setIsShowOption(!isShowOption)}
+                    onClick={() => setIsShowOption(true)}
+                    className='flex items-center relative gap-4 cursor-pointer hover:bg-overlay-30 p-2 rounded-md pl-8 border-l border-main-400'>
                     <div className='flex flex-col gap-2'>
                         <span>{current?.name}</span>
-                        {/* <span>ID: # <span>{current?.id}</span></span> */}
+                        <span>ID: # <span>{current?.id.slice(0, 6)}</span></span>
                     </div>
-                    <img src={current?.image || './user.svg'} alt="avatar" className='w-8 h-8 object-cover rounded-full' />
-                </div>
+                    <img 
+                        // onClick={() => setIsShowOption(!isShowOption)}  
+                        src={current?.image || './user.svg'} alt="avatar" 
+                        className='w-10 h-10 object-cover ' />
+
+                    {isShowOption && 
+                    <div 
+                        // ref={optionBox} 
+                        className="absolute right-0 rounded-md top-full bg-white text-black drop-shadow-sm flex flex-col py-2 border">
+                        {showOption.map((el) => (
+                            <Fragment key={el.id}>
+                                {current?.userRoles?.some(
+                                    (role) => role.roleCode === el.code
+                                ) && <Link className="px-6 py-2 hover:bg-gray-100" to={el.path}>{el.name}</Link>}
+                            </Fragment>
+                        ))}
+                        <span onClick={() => logout()} className="px-6 py-2 hover:bg-gray-100 cursor-pointer">Logout</span>
+                    </div>}
+                </div>}
             </div>
         </div>
     )

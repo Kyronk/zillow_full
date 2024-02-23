@@ -6,8 +6,10 @@ module.exports = {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.literal("gen_random_uuid()"),
+                // type: Sequelize.UUID,
+                // defaultValue: Sequelize.literal("gen_random_uuid()"),
+                type: Sequelize.INTEGER,
+                autoIncrement: true
             },
             name: {
                 type: Sequelize.STRING,
@@ -26,7 +28,8 @@ module.exports = {
                 allowNull: false
             },
             PropertyTypesId: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
                     model: "PropertyTypes",
@@ -34,7 +37,8 @@ module.exports = {
                 }
             },
             Owner: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
                     model: "Users",
@@ -60,7 +64,8 @@ module.exports = {
             },
             // người đăng của cái bài này
             postedBy: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 references: {
                     model: "Users",

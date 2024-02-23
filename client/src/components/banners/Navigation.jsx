@@ -20,7 +20,7 @@ const Navigation = ({location}) => {
     // console.log(current)
 
     return (
-        <div className={twMerge(clsx("h-[85px] w-full bg-transparent flex items-center justify-between fixed z-50 top-[85px] px-[100px] py-[26px]",
+        <div className={twMerge(clsx("h-[85px] w-full bg-transparent flex items-center justify-between fixed z-10 top-[85px] px-[100px] py-[26px]",
             location.pathname !== "/" && "bg-white"
         ))}> 
             <Link to="/">

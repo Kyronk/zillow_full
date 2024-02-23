@@ -26,6 +26,7 @@ export const useUserStore = create(persist(
             if(response.success) return set(() => ({ roles: response.roles}))
             else {return set(() => ({ roles: []}))}
         },
+        logout: () => set(() => ({token: null, current: null}))
     }),
     {
         name: 'rest06',

@@ -6,26 +6,31 @@ module.exports = {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.literal("gen_random_uuid()"),
+                // type: Sequelize.UUID,
+                // defaultValue: Sequelize.literal("gen_random_uuid()"),
+                type: Sequelize.INTEGER,
+                autoIncrement: true
             },
             text: {
                 type: Sequelize.TEXT,
                 allowNull: false
             },
             propertyId: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 references: {
                     model: "Properties",
                     key: "id"
                 }
             },
             parentComment: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
             uid: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize. INTEGER,
                 references: {
                     model: "Users",
                     key: "id"

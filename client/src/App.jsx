@@ -14,6 +14,7 @@ import { Modal } from './components';
 import { useAppStore } from "./store/useAppStore";
 import { useUserStore } from './store/useUserStore';
 import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
+import { Personal, UserLayout } from './pages/user';
 // import { getRoles } from '../../server/controllers/user';
 
 
@@ -52,9 +53,17 @@ function App() {
 
                 {/* Admin routes */}
                 <Route path={path.ADMIN_LAYOUT} element={<AdminLayout />}>
-                    <Route path={path.DASHBOARD} element={<Dashboard />} />
+                    <Route path={path.ADMIN_DASHBOARD} element={<Dashboard />} />
                     <Route path={path.CREATE_PROPERTY_TYPE} element={<Create />}/>
                     <Route path={path.MANAGER_PROPERTY_TYPE} element={<ManagerPropertyType />}/>
+
+                </Route>
+
+
+                {/* User router */}
+                <Route  path={path.USER_LAYOUT} element={<UserLayout />}>
+                    <Route path={path.PERSONAL} element={<Personal />}/>
+
 
                 </Route>
 

@@ -6,11 +6,14 @@ module.exports = {
             id: {
                 allowNull: false,
                 primaryKey: true,
-                type: Sequelize.UUID,
-                defaultValue: Sequelize.literal("gen_random_uuid()"),
+                // type: Sequelize.UUID,
+                // defaultValue: Sequelize.literal("gen_random_uuid()"),
+                type: Sequelize.INTEGER,
+                autoIncrement: true
             },
             propertyId: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 references: {
                     model: "Properties",
                     key: "id"
@@ -18,7 +21,8 @@ module.exports = {
             },
             // uid la user id
             uid: {
-                type: Sequelize.UUID,
+                // type: Sequelize.UUID,
+                type: Sequelize.INTEGER,
                 references: {
                     model: "Users",
                     key: "id"

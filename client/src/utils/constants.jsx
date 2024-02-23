@@ -41,7 +41,7 @@ export const adminSidebar = [
     {
         id: 12,
         name: "Dashboard",
-        path: `/${path.ADMIN_LAYOUT}/${path.DASHBOARD}`,
+        path: `/${path.ADMIN_LAYOUT}/${path.ADMIN_DASHBOARD}`,
         icon: <LuLayoutDashboard />,
         type: "SINGLE"
     },
@@ -63,4 +63,32 @@ export const adminSidebar = [
             }
         ]
     }
+];
+
+
+export const showOption = [
+    {
+        id: 1,
+        name: "Personal",
+        code: "ROL7",
+        path: `/${path.USER_LAYOUT}/${path.PERSONAL}`
+    },
+    {
+        id: 2,
+        name: "Agent",
+        code: "ROL5",
+        path: `/${path.AGENT_LAYOUT}/${path.AGENT_DASHBOARD}`
+    },
+    {
+        id: 3,
+        name: "Owner",
+        code: "ROL3",
+        path: `/${path.OWNER_LAYOUT}/${path.OWNER_DASHBOARD}`
+    },
+    {
+        id: 4,
+        name: "Admit",
+        code: "ROL1",
+        path: `/${path.ADMIN_LAYOUT}/${path.ADMIN_DASHBOARD}`
+    },
 ]
