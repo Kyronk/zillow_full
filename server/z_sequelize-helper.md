@@ -11,7 +11,7 @@ npx sequelize-cli seed:generate --name demo-user
  -- undo :  npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data .js
  -- undo all : npx sequelize-cli db:seed:undo:all
 
- -- video 28
+ -- 
 
 # Table:
 Property

@@ -2,26 +2,23 @@ import clsx from 'clsx'
 import React from 'react'
 import { twMerge } from "tailwind-merge";
 
-const InputForm = ({ 
-    style = "form-input",
+const InputSelect = ({ 
+    style = "form-select",
     containerClassname, 
-    label, 
+    label,    
     id, 
     type="text",
     register,
     errors,
     inputClassname,
     validate,
-    placeholder
+    placeholder,
+    options=[]
 }) => {
     return (
         <div className={twMerge(clsx("flex flex-col gap-2 w-full my-2", containerClassname ))}>
-            {label && 
-                <label className='font-medium text-main-700' htmlFor={id}>
-                    {label}
-                </label>}
-
-            <input 
+            {label && <label className='font-medium text-main-700' htmlFor={id}>{label}</label>}
+            <select 
                 placeholder={placeholder}
                 type={type} 
                 id={id} 
@@ -29,11 +26,18 @@ const InputForm = ({
                 className={twMerge(clsx(style, "placeholder:text-sm", inputClassname))}
                 {...register(id, validate)}
                 
-                />
+                >
+                    <option value="">{placeholder}</option>
+                    {
+                        options.map((el) => (
+                            <option key={el.code} value={el.value} >{el.label}</option>
+                        ))
+                    }
+                </select>
             
             {errors[id] && <small className="text-red-600">{errors[id]?.message}</small> }
         </div>
     )
 }
 
-export default InputForm
+export default InputSelect

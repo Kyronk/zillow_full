@@ -23,15 +23,16 @@ const Topheader = ({location}) => {
     useEffect(() => {
         const handleOnClick = (e) => {
             // console.log(optionBox.current.contains(e.target));
-            if(optionBox.current.contains(e.target)) {
+
+            if(optionBox.current && optionBox.current.contains(e.target)) {
 
                 setIsShowOption(true);
             } else setIsShowOption(false);
         }
 
-        window.addEventListener("click", handleOnClick);
+        document.addEventListener("click", handleOnClick);
         return () => {
-            window.removeEventListener("click", handleOnClick);
+            document.removeEventListener("click", handleOnClick);
         };
     }, [])
 

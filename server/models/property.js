@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
             values: ["SALE", "RENTAL"]
         },
         price: DataTypes.FLOAT,
-        propertyType: DataTypes.INTEGER,
+        PropertyTypesId: DataTypes.INTEGER,
         status: {
             type: DataTypes.ENUM,
             values: ["PENDING", "CANCEL", "APPROVED"]
@@ -56,7 +56,7 @@ module.exports = (sequelize, DataTypes) => {
         bathRoom: DataTypes.INTEGER,
         propertySize: DataTypes.FLOAT,
         yearBuild: DataTypes.INTEGER,
-        owner: DataTypes.INTEGER,
+        Owner: DataTypes.INTEGER,
     }, {
         sequelize,
         modelName: 'Property',
