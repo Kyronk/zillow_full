@@ -134,7 +134,7 @@ module.exports = {
 
     // table properties
     properties: Array.from([...Array(60).keys()]).map(() => ({
-        name: faker.lorem.sentence({ max: 2, min: 1 }).replace(",", " "),
+        name: faker.lorem.sentence({ max: 10, min: 5 }).replace(",", " "),
         description: faker.lorem.sentence({ min: 5, max: 10 }), 
         listingType: faker.helpers.arrayElement(["SALE", "RENTAL"]),
         price: faker.number.int({ max: 1000000, min: 1000 }),
@@ -148,6 +148,7 @@ module.exports = {
         status: "PENDING",
         isAvailable: true,
         featuredImage: faker.image.urlLoremFlickr({ category: "realestate" }),
+        address: faker.location.streetAddress({useFullAddress: true}),
         images: JSON.stringify(Array.from([
             ...Array(faker.number.int({ max: 7, min: 5 })).keys()
         ]).map(() => 

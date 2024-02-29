@@ -27,6 +27,10 @@ module.exports = {
                 type: Sequelize.FLOAT,
                 allowNull: false
             },
+            address: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
             PropertyTypesId: {
                 // type: Sequelize.UUID,
                 type: Sequelize.INTEGER,
