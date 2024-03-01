@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { BreadCrumb, PropertyCard } from '../../components'
+import { BreadCrumb, Button, InputSelect, PropertyCard } from '../../components'
 import { apiGetPropertyList } from '../../apis/properties';
+import { useForm } from 'react-hook-form';
+import { twMerge } from "tailwind-merge";
+import clsx from 'clsx';
 
 const Properties = () => {
 
     const [propertyList, setPropertyList] = useState([]);
+    const [mode, setMode] = useState("ALL");
+    const { register, formState: {errors}, watch} = useForm();
+    const sort = watch("sort")
 
     useEffect(() => {
         const fetchProperties = async () => {
@@ -33,8 +39,43 @@ const Properties = () => {
 
             {/* content */}
             <div className="w-main mx-auto my-20">
-                <div>
-                    sort by
+                <div className='my-4 flex justify-between items-center text-sm'>
+                    <div>
+                        {/* <span>Sort :</span> */}
+                        <InputSelect 
+                            register={register}
+                            id="sort"
+                            errors={errors}
+                            options={[
+                                {label: 'Lastest', value: "-createdAt"},
+                                {label: 'Oldest', value: "createdAt"},
+                                {label: 'A - Z', value: "name"},
+                                {label: 'Z - A', value: "-name"},
+                            ]}
+                            placeholder="Select"
+                            containerClassname="flex-row items-center gap-2"
+                            label="Sort :"
+                            inputClassname="w-fit rounded-md"
+                        />
+                    </div>
+
+                    <div className='flex items-center gap-4'>
+                        <Button
+                            onClick={() => setMode("ALL")} 
+                            className={twMerge(clsx("whitespace-nowrap bg-transparent border-none text-gray-900 font-medium", mode ==="ALL" && 'font-bold'))}>
+                            All Properties
+                        </Button>
+                        <Button 
+                            onClick={() => setMode("RENT")}
+                            className={twMerge(clsx("whitespace-nowrap bg-transparent border-none text-gray-900 font-medium", mode ==="RENT" && 'font-bold'))}>
+                            For Rent
+                        </Button>
+                        <Button 
+                            onClick={() => setMode("SALE")}
+                            className={twMerge(clsx("whitespace-nowrap bg-transparent border-none text-gray-900 font-medium", mode ==="SALE" && 'font-bold'))}>
+                            For Sale
+                        </Button>
+                    </div>
                 </div>
                 
                 <div className='w-full grid grid-cols-3 gap-4'>

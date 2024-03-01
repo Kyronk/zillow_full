@@ -59,7 +59,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
     // [createdAt, -name]
     // sort: createdAt, -name
     if ( sort ) {
-        console.log(sort);
+        // console.log(sort);
         const order = sort.split(",").map((el => el.startsWith("-")? [el.replace("-",""), "DESC"] : [el, "ASC"]));
     
             options.order = order;
@@ -97,7 +97,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
     } 
     options.limit = +limit;
 
-    console.log(options);
+    // console.log(options);
     const response = await db.Property.findAndCountAll({
         where: query,
         ...options,

@@ -7,7 +7,7 @@ const reteLimiter =  async (req, res, next ) => {
     const currentTime = Date.now(); //ms
 
     const client = await redis.hGetAll(`rateLimit-${clientId}`);
-    console.log(client);
+    // console.log(client);
 
     if(Object.keys(client).length === 0 ) {
         await redis.hSet(`rateLimit-${clientId}`, "createdAt", currentTime);
@@ -17,7 +17,7 @@ const reteLimiter =  async (req, res, next ) => {
     }
 
     let difference = (currentTime - +client.createdAt) / 1000;
-    console.log(difference);
+    // console.log(difference);
 
     if(difference >= +process.env.RATE_LIMIT_RESET) {
         await redis.hSet(`rateLimit-${clientId}`, "createdAt", currentTime);

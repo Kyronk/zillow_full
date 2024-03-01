@@ -1,9 +1,10 @@
 import React from 'react'
 import { formatMoney } from '../../utils/fn'
 import { BsCurrencyDollar } from "react-icons/bs";
-import { FaBed } from "react-icons/fa";
-import { FaBath } from "react-icons/fa";
+import { FaBed, FaBath, FaRegEye  } from "react-icons/fa";
+// import { FaBath } from "react-icons/fa";
 import { MdLocationCity } from "react-icons/md";
+import { IoShareSocialOutline } from "react-icons/io5";
 
 const PropertyCard = ({properties}) => {
     // console.log(properties.bedRoom)
@@ -38,33 +39,58 @@ const PropertyCard = ({properties}) => {
                     </span>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center justify-between gap-4'>
                     <div className='flex items-center gap-2'>
-                        <img 
-                            src={properties?.rPostedBy?.avatar} 
-                            alt=""
-                            className='w-10 h-10 object-cover rounded-full'
-                            />
-                        <span className='text-gray-500'>{properties?.rPostedBy?.name}</span>
+                        <div className='flex items-center gap-2'>
+                            <img 
+                                src={properties?.rPostedBy?.avatar} 
+                                alt=""
+                                className='w-8 h-8 object-cover rounded-full'
+                                />
+                            <span className='text-gray-500'>{properties?.rPostedBy?.name}</span>
+                        </div>
+                        <span className='px-4 py-1 text-xs flex items-center justify-center bg-green-600 text-white'>
+                            Agent
+                        </span>
                     </div>
-                    <span className='px-4 py-1 text-xs flex items-center justify-center bg-green-600 text-white'>
-                        Agent
-                    </span>
+
+                    <div className="flex items-center gap-2">
+                        <span className='w-8 h-8 flex items-center justify-center bg-gray-200 rounded-md'>
+                            <IoShareSocialOutline />
+                        </span>
+                        <span className='w-8 h-8 flex items-center justify-center bg-gray-200 rounded-md'>
+                            <FaRegEye  />
+                        </span>
+                    </div>
                 </div>
 
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center justify-between gap-4'>
                     <div className='flex items-center gap-2'>
-                        <img 
-                            src={properties?.rOwner?.avatar} 
-                            alt=""
-                            className='w-10 h-10 object-cover rounded-full'
-                            />
-                        <span className='text-gray-500'>{properties?.rOwner?.name}</span>
+                        <div className='flex items-center gap-2'>
+                            <img 
+                                src={properties?.rOwner?.avatar} 
+                                alt=""
+                                className='w-8 h-8 object-cover rounded-full'
+                                />
+                            <span className='text-gray-500'>{properties?.rOwner?.name}</span>
+                        </div>
+                        <span className='px-4 py-1 text-xs flex items-center justify-center bg-purple-600 text-white'>
+                            Owner
+                        </span>
                     </div>
-                    <span className='px-4 py-1 text-xs flex items-center justify-center bg-purple-600 text-white'>
-                        Owner
-                    </span>
+
+                    <div className="flex items-center gap-2">
+                        <span className='w-8 h-8 flex items-center justify-center bg-gray-200 rounded-md'>
+                            <IoShareSocialOutline />
+                        </span>
+                        <span className='w-8 h-8 flex items-center justify-center bg-gray-200 rounded-md'>
+                            <FaRegEye  />
+                        </span>
+                    </div>
+                
                 </div>
+
+
             </div>
 
         
