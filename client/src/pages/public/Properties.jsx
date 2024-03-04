@@ -4,6 +4,7 @@ import { apiGetPropertyList } from '../../apis/properties';
 import { useForm } from 'react-hook-form';
 import { twMerge } from "tailwind-merge";
 import clsx from 'clsx';
+import { Pagination } from '../../components/paginations';
 
 const Properties = () => {
 
@@ -91,6 +92,11 @@ const Properties = () => {
                     <PropertyCard />
                     <PropertyCard />
                     <PropertyCard /> */}
+                </div>
+
+                {/* pagination */}
+                <div className="flex justify-center items-center my-4">
+                    <Pagination />
                 </div>
             </div>
 
