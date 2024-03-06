@@ -20,7 +20,7 @@ const Navigation = ({ location }) => {
     // console.log(current)
 
     return (
-        <div className='fixed w-full top-[85px]'>
+        <div className={twMerge(clsx('fixed w-full z-10 top-[85px]', location.pathname !== "/" && "bg-white"))}>
             <div 
                 className={
                     twMerge(

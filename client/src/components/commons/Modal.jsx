@@ -8,7 +8,8 @@ const Modal = () => {
 
     return (
         <div 
-            className="absolute z-[999] flex items-center justify-center w-screen h-screen bg-overlay-50"
+            // className="absolute z-[999] flex items-center justify-center w-screen h-screen bg-overlay-50"
+            className="fixed z-[999] flex items-center justify-center w-full h-full bg-overlay-50"
             onClick={() => setModal(false, null)}
             >
             {contentModal}
