@@ -20,7 +20,7 @@ const Properties = () => {
 
                 limit: 9
             });
-            console.log(response);
+            // console.log(response);
             if (response.success) setPropertyList(response.property);
         }
         fetchProperties();
@@ -96,7 +96,11 @@ const Properties = () => {
 
                 {/* pagination */}
                 <div className="flex justify-center items-center my-4">
-                    <Pagination />
+                    <Pagination 
+                        total={propertyList?.count}
+                        limit={propertyList?.limit}
+                        page={propertyList?.page}
+                    />
                 </div>
             </div>
 

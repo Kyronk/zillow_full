@@ -1,11 +1,19 @@
 import React from 'react'
 import usePagination from "../../hooks/usePagination";
+import PaginationItem from './PaginationItem';
 
-const Pagination = () => {
-    const pagination = usePagination({total: 23, limit: 2, currentPage: 5, sibling: 1})
+const Pagination = ({
+    total,
+    limit,
+    page, 
+    sibling
+}) => {
+    const pagination = usePagination({total: total, limit: limit, currentPage: page, sibling: 1})
     console.log(pagination);
     return (
-        <div>Pagination</div>
+        <div className='flex items-center justify-center gap-2'>
+            {pagination?.map((el, idx) => <PaginationItem content={el} key={idx} />)}
+        </div>
     )
 }
 

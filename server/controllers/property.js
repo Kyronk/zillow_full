@@ -121,7 +121,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
         // properties: response
         success : Boolean(response),
         mes: response ? "Got." : "Cannot get propertyType",
-        property: response
+        property: response ? {...response, limit: +limit, page: page ? page : 1} : null,
     })
 })
 
