@@ -90,8 +90,9 @@ const getPropertyList = asyncHandler(async (req, res) => {
     
     // offset là vị trí bắt đầu lấy
     // pagination
-    const prevPage = page - 1 > 0 ? page - 1 : 1;
-    const offset = ((prevPage - 1 ) * limit);
+    // const prevPage = page - 1 > 0 ? page - 1 : 1;
+    // const offset = ((prevPage - 1 ) * limit);
+    const offset = (page && +page > 1  ? +page - 1 : 0) * limit;
     if(offset) {
         options.offset = offset;
     } 
@@ -121,7 +122,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
         // properties: response
         success : Boolean(response),
         mes: response ? "Got." : "Cannot get propertyType",
-        property: response ? {...response, limit: +limit, page: page ? page : 1} : null,
+        property: response ? {...response, limit: +limit, page: +page ? +page : 1} : null,
     })
 })
 

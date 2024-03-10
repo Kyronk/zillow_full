@@ -5,26 +5,33 @@ import { useForm } from 'react-hook-form';
 import { twMerge } from "tailwind-merge";
 import clsx from 'clsx';
 import { Pagination } from '../../components/paginations';
+import { useSearchParams } from 'react-router-dom';
+import {toast} from "react-toastify";
 
 const Properties = () => {
 
     const [propertyList, setPropertyList] = useState([]);
     const [mode, setMode] = useState("ALL");
+    const [searchParams] = useSearchParams();
     const { register, formState: {errors}, watch} = useForm();
-    const sort = watch("sort")
+    const sort = watch("sort");
 
     useEffect(() => {
-        const fetchProperties = async () => {
+        const fetchProperties = async (params) => {
             const response =  await apiGetPropertyList({
                 // limit: import.meta.env.VITE_LIMITS,
 
-                limit: 9
+                limit: 9,
+                ...params
             });
             // console.log(response);
             if (response.success) setPropertyList(response.property);
+            else toast.error(response.mes);
         }
-        fetchProperties();
-    }, []);
+        const params = Object.fromEntries([...searchParams]);
+        console.log(params)
+        fetchProperties(params);
+    }, [searchParams]);
 
     return (
         <div className='w-full'>
