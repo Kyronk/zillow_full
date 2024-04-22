@@ -3,6 +3,7 @@ import {create} from "zustand";
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 import {apiGetCurrent, apiGetRoles} from "../apis/user";
+import { apiGetPropertyType } from "../apis/propertyType";
 // export const useUserStore = create(() => ({
 //     token: null,
 //     current: null,
@@ -26,6 +27,12 @@ export const useUserStore = create(persist(
             if(response.success) return set(() => ({ roles: response.roles}))
             else {return set(() => ({ roles: []}))}
         },
+
+        // getPropertyTypes: async () => {
+        //     const response = await apiGetPropertyType();
+
+        // },
+
         logout: () => set(() => ({token: null, current: null}))
     }),
     {

@@ -13,6 +13,7 @@ import { Modal } from './components';
 // redux zustand
 import { useAppStore } from "./store/useAppStore";
 import { useUserStore } from './store/useUserStore';
+import { usePropertiesStore } from "./store/useProperties";
 import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
 import { Personal, UserLayout } from './pages/user';
 // import { getRoles } from '../../server/controllers/user';
@@ -22,9 +23,10 @@ import { Personal, UserLayout } from './pages/user';
 function App() {
     // const [count, setCount] = useState(0)
 
-    const { isShowModal, contentModal } = useAppStore()
+    const { isShowModal, contentModal } = useAppStore();
     // console.log("check", isShowModal, contentModal)
     const {getCurrent, current, token, getRoles} = useUserStore();
+    const { getPropertyTypes } = usePropertiesStore();
 
     // const getToken = window.localStorage.getItem("rest06");
     // console.log(getToken)
@@ -32,6 +34,7 @@ function App() {
     useEffect(() => {
         getCurrent();
         getRoles();
+        getPropertyTypes({fields: "id"});
     }, [token])
     return (
 

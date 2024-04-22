@@ -5,6 +5,7 @@ const { throwErrorWithStatus } = require("../middlewares/errorHandler");
 const { Op, Sequelize } = require("sequelize");
 const { boolean } = require("joi");
 const redis = require("../config/redis.config");
+const { gerenateKeyRedis } = require("../utils/fn");
 
 // const bcrypt = require("bcrypt");
 
@@ -71,13 +72,21 @@ const getPropertyTypes = asyncHandler(async (req, res) => {
         // }
     }
 
+
+    //
+    const filter = {
+        where: query,
+        ...options,
+    }
     if (!limit) {
         // if (fields) options.attributes = fields.split(",");
         // console.log(options)
         // const response = await db.PropertyType.findAll(options);
 
         // const response = await db.PropertyType.findAll(options);
-        const alreadyGetAll = await redis.get("get-property-type");
+        const keys = gerenateKeyRedis(filter);
+        // const alreadyGetAll = await redis.get("get-property-type");
+        const alreadyGetAll = await redis.get(keys);
         if(alreadyGetAll) {
             return res.json({
                 success: true,
@@ -87,10 +96,12 @@ const getPropertyTypes = asyncHandler(async (req, res) => {
         }
 
         const response = await db.PropertyType.findAll({
-            where: query,
-            ...options,
+            ...filter,
         })
-        redis.set("get-property-type", JSON.stringify(response));
+        // redis.set("get-property-type", JSON.stringify(response));
+        redis.set(keys, JSON.stringify(response));
+        redis.expireAt(keys, parseInt((+new Date)/1000) + 20);
+
 
         return res.json({
             success: response.length > 0 ? "true" : "false",

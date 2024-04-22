@@ -31,7 +31,7 @@ const createNewProperty = asyncHandler( async(req, res) => {
 });
 
 const getPropertyList = asyncHandler(async (req, res) => {
-    const { limit, page, fields, name, sort, ...query } = req.query;
+    const { limit, page, fields, name, sort, address,...query } = req.query;
     // console.log(query)
     const options = {};
     // limit fields
@@ -52,7 +52,17 @@ const getPropertyList = asyncHandler(async (req, res) => {
     // if (name) query.name = { [Op.substring]: name } // %LIKE%
 
     // filter by client queries
-    // if (name) query.name = Sequelize.where(Sequelize.fn("LOWER", Sequelize.col("name")),"LIKE",`%${name.toLocaleLowerCase()}%`)
+    // if (name) 
+    //     query.name = Sequelize.where(
+    //         Sequelize.fn("LOWER", Sequelize.col("name"))
+    //         ,"LIKE",`%${name.toLocaleLowerCase()}%`)
+
+    // filter by address
+    if ( address ) 
+        query.address = Sequelize.where(
+            Sequelize.fn("LOWER", Sequelize.col("address")),
+            "LIKE",
+            `%${address.toLocaleLowerCase()}%`)
 
     // sort
     // order = [[createdAt, ASC], [name, DESC]]

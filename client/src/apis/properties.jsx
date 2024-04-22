@@ -8,3 +8,10 @@ export const apiGetPropertyList = (params) =>
     });
 
 ///
+
+// export const apiGetPropertyList = (params) => 
+//     axios({
+//         url: "/properties/" ,
+//         method: "get",
+//         params
+//     });
