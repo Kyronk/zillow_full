@@ -14,6 +14,7 @@ export {default as AdminSidebar } from "./sidebars/AdminSidebar";
 export {default as Title } from "./commons/Title";
 export {default as OtpVerifier } from "./auth/OtpVerifier";
 export {default as Search } from "./searchs/Search";
+export {default as SelectPrice} from "./searchs/SelectPrice";
 export {default as PropertyCard} from "./properties/PropertyCard";
 
 

@@ -34,7 +34,7 @@ function App() {
     useEffect(() => {
         getCurrent();
         getRoles();
-        getPropertyTypes({fields: "id"});
+        getPropertyTypes({fields: "id,name,image"});
     }, [token])
     return (
 

@@ -20,9 +20,6 @@ for ( const name of Object.keys(nets)) {
 
 
 
-
-
-
 const getIpAddress = () => {
     const nets = networkInterfaces();
     const results = {};

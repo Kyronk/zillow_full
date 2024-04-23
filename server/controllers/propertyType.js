@@ -100,7 +100,7 @@ const getPropertyTypes = asyncHandler(async (req, res) => {
         })
         // redis.set("get-property-type", JSON.stringify(response));
         redis.set(keys, JSON.stringify(response));
-        redis.expireAt(keys, parseInt((+new Date)/1000) + 20);
+        redis.expireAt(keys, parseInt((+new Date)/1000) + 86400); // này là số giây 
 
 
         return res.json({

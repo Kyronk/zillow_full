@@ -1,7 +1,9 @@
 const redis = require("../config/redis.config");
+const { gerenateKeyRedis } = require("../utils/fn");
 
 const reteLimiter =  async (req, res, next ) => {
-    const clientId = req.headers?.client_id;
+    // const clientId = req.headers?.client_id;
+    const clientId = gerenateKeyRedis("")
     // console.log(clientId)
     
     const currentTime = Date.now(); //ms
@@ -12,7 +14,8 @@ const reteLimiter =  async (req, res, next ) => {
     if(Object.keys(client).length === 0 ) {
         await redis.hSet(`rateLimit-${clientId}`, "createdAt", currentTime);
         await redis.hSet(`rateLimit-${clientId}`, "count", 1);
-
+        redis.expireAt(`rateLimit-${clientId}`, parseInt((+new Date)/1000) + 600); // này là số giây 
+        
         return next();
     }
 
@@ -22,6 +25,7 @@ const reteLimiter =  async (req, res, next ) => {
     if(difference >= +process.env.RATE_LIMIT_RESET) {
         await redis.hSet(`rateLimit-${clientId}`, "createdAt", currentTime);
         await redis.hSet(`rateLimit-${clientId}`, "count", 1);
+        redis.expireAt(`rateLimit-${clientId}`, parseInt((+new Date)/1000) + 600); // này là số giây 
 
         return next();
     }
@@ -33,6 +37,7 @@ const reteLimiter =  async (req, res, next ) => {
         })
     }else {
         await redis.hSet(`rateLimit-${clientId}`, "count", +client.count + 1);
+        redis.expireAt(`rateLimit-${clientId}`, parseInt((+new Date)/1000) + 600); // này là số giây 
 
         return next()
     }
