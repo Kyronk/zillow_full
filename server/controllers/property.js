@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { throwErrorWithStatus } = require("../middlewares/errorHandler");
 const redis = require("../config/redis.config");
+const { Sequelize } = require("sequelize");
 // export.register
 
 // property : tài sản :
@@ -60,7 +61,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
     // filter by address
     if ( address ) 
         query.address = Sequelize.where(
-            Sequelize.fn("LOWER", Sequelize.col("address")),
+            Sequelize.fn("LOWER", Sequelize.col("Property.address")),
             "LIKE",
             `%${address.toLocaleLowerCase()}%`)
 
