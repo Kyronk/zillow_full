@@ -10,8 +10,10 @@ import { usePropertiesStore } from '../../store/useProperties';
 import withRouter from '../../hocs/withRouter';
 import path from '../../utils/path';
 import { createSearchParams } from 'react-router-dom';
+import { twMerge } from 'tailwind-merge';
+import clsx from 'clsx';
 
-const Search = ({ navigate }) => {
+const Search = ({ navigate, direction="horizontal" }) => {
 
     const {
         register,
@@ -43,24 +45,30 @@ const Search = ({ navigate }) => {
     }
     return (
         //  1 rem = 16px
-        <form className='bg-white py-8 grid grid-cols-4 rounded-md shadow-lg w-[1096px] mx-auto h-[8em] mt-[-4em] relative z-20'>
-            <SearchItem title="Location">
+        <form 
+            className={twMerge(clsx('bg-white py-8 rounded-md shadow-lg mx-auto mt-[-4em] relative z-20'),
+                    direction === "vertical" ? "flex flex-col gap-4 h-fit w-[500px] px-8" : "",
+                    direction === "horizontal" ? "grid grid-cols-4 h-[8em] w-[1096px]": ""
+                )}
+            onClick={e => e.stopPropagation()}
+        >
+            <SearchItem className={direction === "vertical" ? "items-start justify-start border-none" : ""} title="Location">
                 <InputForm
                     id="address"
                     register={register}
                     errors={errors}
                     placeholder="Type your required locations"
-                    containerClassname="w-[14em]"
+                    containerClassname={direction === "vertical"? "w-full" : "w-[14em]"}
                     inputClassname="rounded-md border border-gray-300"
                 />
             </SearchItem>
 
-            <SearchItem title="Property Type">
+            <SearchItem className={direction === "vertical" ? "items-start justify-start border-none" : ""} title="Property Type">
                 <SelectLib 
                     id="propertyType"
                     register={register}
                     errors={errors}
-                    containerClassname="w-[14em]"
+                    containerClassname={direction === "vertical"? "w-full" : "w-[14em]"}
                     inputClassname="rounded-md border border-gray-300"
                     placeholder="Select property"
                     options={propertyTypes?.map((el) => ({...el, label: el.name}))}
@@ -68,7 +76,7 @@ const Search = ({ navigate }) => {
                 />
             </SearchItem>
 
-            <SearchItem title="Rent range">
+            <SearchItem className={direction === "vertical" ? "items-start justify-start border-none" : ""}  title="Rent range">
                 {/* <SelectLib 
                     id="price"
                     register={register}
@@ -101,10 +109,35 @@ const Search = ({ navigate }) => {
                 
                 <Button
                     onClick={() => setIsShowPopupPrice((prev) => !prev)} 
-                    className="bg-white text-black border border-gray-300 w-full max-w-[196px]">
+                    className={
+                        twMerge(
+                            clsx("bg-white text-black border border-gray-300 w-full", 
+                            direction === "vertical" 
+                                ?"max-w-full hidden"
+                                : "max-w-[14em]"))}>
                     <span>select range price</span>
                     <FaChevronDown />
                 </Button>
+                {
+                    direction === "vertical" && (
+                        <div className='grid grid-cols-2 w-full gap-3'>
+                            <InputForm 
+                                inputClassname="border-gray-300 rounded-md"
+                                id="start"
+                                register={register}
+                                errors={errors}
+                                placeholder="Type price start"
+                            />
+                            <InputForm 
+                                inputClassname="border-gray-300 rounded-md"
+                                id="end"
+                                register={register}
+                                errors={errors}
+                                placeholder="Type price end"
+                            />
+                        </div>
+                    )
+                }
             </SearchItem>
             {/* <SearchItem /> */}
             <div className='flex items-center justify-center'>

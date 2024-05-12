@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BreadCrumb, Button, InputSelect, PropertyCard } from '../../components'
+import { BreadCrumb, Button, InputSelect, PropertyCard, Search } from '../../components'
 import { apiGetPropertyList } from '../../apis/properties';
 import { useForm } from 'react-hook-form';
 import { twMerge } from "tailwind-merge";
@@ -8,6 +8,10 @@ import { Pagination } from '../../components/paginations';
 import { useSearchParams } from 'react-router-dom';
 import {toast} from "react-toastify";
 
+// icon
+import { CiBoxList } from "react-icons/ci";
+import { useAppStore } from '../../store/useAppStore';
+
 const Properties = () => {
 
     const [propertyList, setPropertyList] = useState([]);
@@ -15,6 +19,7 @@ const Properties = () => {
     const [searchParams] = useSearchParams();
     const { register, formState: {errors}, watch} = useForm();
     const sort = watch("sort");
+    const { setModal } = useAppStore();
 
     useEffect(() => {
         const fetchProperties = async (params) => {
@@ -30,8 +35,9 @@ const Properties = () => {
         }
         const params = Object.fromEntries([...searchParams]);
         console.log(params)
+        if (sort) params.sort = sort
         fetchProperties(params);
-    }, [searchParams]);
+    }, [searchParams, sort]);
 
     return (
         <div className='w-full'>
@@ -47,9 +53,12 @@ const Properties = () => {
 
             {/* content */}
             <div className="w-main mx-auto my-20">
-                <div className='my-4 flex justify-between items-center text-sm'>
-                    <div>
+                <div className='my-4 flex justify-between items-center text-base'>
+                    <div className='flex items-center gap-4'>
                         {/* <span>Sort :</span> */}
+                        <span onClick={() => setModal(true, <Search direction="vertical" />)} className='cursor-pointer'>
+                            <CiBoxList size={24} />
+                        </span>
                         <InputSelect 
                             register={register}
                             id="sort"
@@ -62,7 +71,7 @@ const Properties = () => {
                             ]}
                             placeholder="Select"
                             containerClassname="flex-row items-center gap-2"
-                            label="Sort :"
+                            label="Sort by:"
                             inputClassname="w-fit rounded-md"
                         />
                     </div>
