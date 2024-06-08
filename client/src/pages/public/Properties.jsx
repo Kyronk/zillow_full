@@ -34,9 +34,12 @@ const Properties = () => {
             else toast.error(response.mes);
         }
         const params = Object.fromEntries([...searchParams]);
-        console.log(params)
+        // console.log(params)
+        if(params.price) params.price = searchParams.getAll("price")
         if (sort) params.sort = sort
-        fetchProperties(params);
+
+        console.log(params);
+        // fetchProperties(params);
     }, [searchParams, sort]);
 
     return (

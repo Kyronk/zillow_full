@@ -19,13 +19,15 @@ const Search = ({ navigate, direction="horizontal" }) => {
         register,
         formState: {errors},
         handleSubmit,
-        // watch,
         setValue,
+        // watch,
     } = useForm();
     const { propertyTypes } = usePropertiesStore();
     // const propertyType = watch("propertyType");
     // const onChangeCustom = (id, value) =>  setValue(id, value);
     const [isShowPopupPrice, setIsShowPopupPrice] = useState(false);
+    // const propertyType = watch("propertyType");
+    
 
     const handleSearchParams = data => {
         // console.log(data)
@@ -33,8 +35,11 @@ const Search = ({ navigate, direction="horizontal" }) => {
         const params = new Object();
         if (address) params.address = address;
         if (propertyType) params.propertyTypeId = propertyType.id;
-        if (start && !end)  params.price = [ +start, Math.pow(10, 9)];
-        if (!start && end) params.price = [0, +end];
+        // if (start && !end)  params.price = [ +start, Math.pow(10, 9)];
+        // if (!start && end) params.price = [0, +end];
+        if (start && !end)  params.price = [ "gte" ,+start]; // greater than equal
+        if (!start && end) params.price = [ "lte", +end]; // less than equal
+
         if (start && end) params.price= [+start, +end];
         
         // console.log(params);
@@ -70,9 +75,9 @@ const Search = ({ navigate, direction="horizontal" }) => {
                     errors={errors}
                     containerClassname={direction === "vertical"? "w-full" : "w-[14em]"}
                     inputClassname="rounded-md border border-gray-300"
-                    placeholder="Select property"
+                    placeholder="Select property type"
                     options={propertyTypes?.map((el) => ({...el, label: el.name}))}
-                    onChange={(val) => setValue("propertyType", val)}
+                    onChange={(val) => setValue("propertyType", val)} //error
                 />
             </SearchItem>
 
