@@ -2,15 +2,21 @@ import React from 'react'
 // import usePagination from '../../hooks/usePagination'
 import clsx from 'clsx'
 import { twMerge } from "tailwind-merge";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom";
 import withRouter from '../../hocs/withRouter';
 
 const PaginationItem = ({ content, page, navigate, location  }) => {
     // const navigate = useNavigate()
+    const [ searchParams ] = useSearchParams();
     const handleChangePage = () => {
+        const params = Object.fromEntries([...searchParams]);
+        params.page = content;
+        if (params.price) params.price = searchParams.getAll("price");
         navigate({
             pathname: location.pathname,
-            search: createSearchParams({page: content}).toString(),
+            // search: createSearchParams({page: content}).toString(),
+            search: createSearchParams(params).toString(),
+
         });
     };
 

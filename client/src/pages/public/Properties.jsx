@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { twMerge } from "tailwind-merge";
 import clsx from 'clsx';
 import { Pagination } from '../../components/paginations';
-import { useSearchParams } from 'react-router-dom';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 import {toast} from "react-toastify";
 
 // icon
@@ -13,6 +13,7 @@ import { CiBoxList } from "react-icons/ci";
 import { useAppStore } from '../../store/useAppStore';
 
 const Properties = () => {
+    const navigate = useNavigate()
 
     const [propertyList, setPropertyList] = useState([]);
     const [mode, setMode] = useState("ALL");
@@ -35,11 +36,12 @@ const Properties = () => {
         }
         const params = Object.fromEntries([...searchParams]);
         // console.log(params)
+        // console.log(searchParams.getAll("price"))
         if(params.price) params.price = searchParams.getAll("price")
         if (sort) params.sort = sort
 
         console.log(params);
-        // fetchProperties(params);
+        fetchProperties(params);
     }, [searchParams, sort]);
 
     return (
@@ -77,6 +79,7 @@ const Properties = () => {
                             label="Sort by:"
                             inputClassname="w-fit rounded-md"
                         />
+                        <Button onClick={() => navigate(location.pathname)} className="whitespace-nowrap">Reset Filter</Button>
                     </div>
 
                     <div className='flex items-center gap-4'>

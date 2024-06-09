@@ -12,6 +12,7 @@ import path from '../../utils/path';
 import { createSearchParams } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
+import { useAppStore } from '../../store/useAppStore';
 
 const Search = ({ navigate, direction="horizontal" }) => {
 
@@ -22,6 +23,7 @@ const Search = ({ navigate, direction="horizontal" }) => {
         setValue,
         // watch,
     } = useForm();
+    const { setModal } =  useAppStore()
     const { propertyTypes } = usePropertiesStore();
     // const propertyType = watch("propertyType");
     // const onChangeCustom = (id, value) =>  setValue(id, value);
@@ -41,6 +43,7 @@ const Search = ({ navigate, direction="horizontal" }) => {
         if (!start && end) params.price = [ "lte", +end]; // less than equal
 
         if (start && end) params.price= [+start, +end];
+        if (direction === "vertical") setModal(false, null);
         
         // console.log(params);
         navigate({

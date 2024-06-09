@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { throwErrorWithStatus } = require("../middlewares/errorHandler");
 const redis = require("../config/redis.config");
-const { Sequelize } = require("sequelize");
+const { Sequelize, Op } = require("sequelize");
 // export.register
 
 // property : tài sản :
@@ -32,7 +32,7 @@ const createNewProperty = asyncHandler( async(req, res) => {
 });
 
 const getPropertyList = asyncHandler(async (req, res) => {
-    const { limit, page, fields, name, sort, address,...query } = req.query;
+    const { limit, page, fields, name, sort, address, price, ...query } = req.query;
     // console.log(query)
     const options = {};
     // limit fields
@@ -64,6 +64,17 @@ const getPropertyList = asyncHandler(async (req, res) => {
             Sequelize.fn("LOWER", Sequelize.col("Property.address")),
             "LIKE",
             `%${address.toLocaleLowerCase()}%`)
+
+    // price
+    if (price) {
+        const isBetweenFilter = price?.every(el => !isNaN(el));
+        if (isBetweenFilter) query.price = {[Op.between]: price}
+        else {
+            const number = price?.find(el => !isNaN(el));
+            const operator = price?.find(el => isNaN(el))
+            query.price = { [Op[[operator]]]: number}
+        }
+    }
 
     // sort
     // order = [[createdAt, ASC], [name, DESC]]
@@ -108,6 +119,7 @@ const getPropertyList = asyncHandler(async (req, res) => {
         options.offset = offset;
     } 
     options.limit = +limit;
+    // console.log(query) // log all query
 
     // console.log(options);
     const response = await db.Property.findAndCountAll({
