@@ -34,7 +34,9 @@ const Topheader = ({location}) => {
         return () => {
             document.removeEventListener("click", handleOnClick);
         };
-    }, [])
+    }, []);
+
+    console.log(current)
 
     return (
         <div className={twMerge(
@@ -71,12 +73,13 @@ const Topheader = ({location}) => {
                     className='flex items-center relative gap-4 cursor-pointer hover:bg-overlay-30 p-2 rounded-md pl-8 border-l border-main-400'>
                     <div className='flex flex-col gap-2'>
                         <span>{current?.name}</span>
-                        <span>ID: # <span>{current?.id.slice(0, 6)}</span></span>
+                        {/* <span>ID: # <span>{current?.id.slice(0, 6)}</span></span> */}
+                        <span>ID: # <span>{current?.id}</span></span>
                     </div>
                     <img 
                         // onClick={() => setIsShowOption(!isShowOption)}  
-                        src={current?.image || './user.svg'} alt="avatar" 
-                        className='w-10 h-10 object-cover ' />
+                        src={current?.avatar || './user.svg'} alt="avatar" 
+                        className='w-10 h-10 object-cover rounded-full ' />
 
                     {isShowOption && 
                     <div 

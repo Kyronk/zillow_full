@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react'
 
+// import { AboutUs, Home, OurAgents, Properties, PublicLayout, Search } from './pages/public'
+// import { Routes, Route } from "react-router-dom"
+// import path from './utils/path'
+// import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
+// import { Personal, UserLayout } from './pages/user';
+
+
+////////////////////////////////////////////
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Routes, Route } from "react-router-dom"
-import path from './utils/path'
 // import PublicLayout from './pages/public/PublicLayout'
 // import Home from "./pages/public/Home"
-import { AboutUs, Home, OurAgents, Properties, PublicLayout, Search } from './pages/public'
 import { Modal } from './components';
 
 // redux zustand
 import { useAppStore } from "./store/useAppStore";
 import { useUserStore } from './store/useUserStore';
 import { usePropertiesStore } from "./store/useProperties";
-import { AdminLayout, Create, Dashboard, ManagerPropertyType } from './pages/admin/';
-import { Personal, UserLayout } from './pages/user';
+import { Outlet } from 'react-router-dom';
 // import { getRoles } from '../../server/controllers/user';
 
 
@@ -41,8 +45,10 @@ function App() {
         <div className="">
             {isShowModal && <Modal />}
 
+            <Outlet />
 
-            <Routes>
+            {/* <Routes>
+
                 <Route path={path.PUBLIC_LAYOUT} element={<PublicLayout />}>
                     <Route path={path.HOME} element={<Home />} />
                     <Route path={path.ABOUT_US} element={<AboutUs />} />
@@ -54,7 +60,6 @@ function App() {
                 </Route>
 
 
-                {/* Admin routes */}
                 <Route path={path.ADMIN_LAYOUT} element={<AdminLayout />}>
                     <Route path={path.ADMIN_DASHBOARD} element={<Dashboard />} />
                     <Route path={path.CREATE_PROPERTY_TYPE} element={<Create />}/>
@@ -63,14 +68,13 @@ function App() {
                 </Route>
 
 
-                {/* User router */}
                 <Route  path={path.USER_LAYOUT} element={<UserLayout />}>
                     <Route path={path.PERSONAL} element={<Personal />}/>
 
 
                 </Route>
 
-            </Routes>
+            </Routes> */}
 
             <ToastContainer
                 position="top-center"
