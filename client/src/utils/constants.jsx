@@ -7,6 +7,7 @@ import { LuLayoutDashboard } from "react-icons/lu";
 import { BsFillHouseAddFill } from "react-icons/bs";
 
 import { BsFillHouseGearFill } from "react-icons/bs";
+import { FaRegUserCircle } from "react-icons/fa";
 
 export const navigations = [
     {
@@ -63,6 +64,16 @@ export const adminSidebar = [
             }
         ]
     }
+];
+
+export const userSidebar = [
+    {
+        id: 12,
+        name: "Personal",
+        path: `/${path.USER_LAYOUT}/${path.PERSONAL}`,
+        icon: <FaRegUserCircle  />,
+        type: "SINGLE"
+    },
 ];
 
 
