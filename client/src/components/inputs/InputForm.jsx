@@ -12,14 +12,20 @@ const InputForm = ({
     errors,
     inputClassname,
     validate,
-    placeholder
+    placeholder,
+    require,
 }) => {
     return (
         <div className={twMerge(clsx("flex flex-col gap-2 w-full my-2", containerClassname ))}>
-            {label && 
+            {label && (
                 <label className='font-medium text-main-700' htmlFor={id}>
                     {label}
-                </label>}
+                    {require && (
+                        <sup>
+                            (<span className='text-red-500'>*</span>)
+                        </sup>
+                    )}
+                </label> )}
 
             <input 
                 placeholder={placeholder}

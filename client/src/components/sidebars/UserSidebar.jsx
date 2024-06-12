@@ -24,7 +24,7 @@ const UserSidebar = () => {
         <div className='h-full bg-main-700 text-white w-full'>
             <div className="w-full flex flex-col items-center justify-center">
                 <img src="/img/logo.png" alt="logo" className="w-5/5 object-contain" />
-                <small className="text-red-100 italic">Admin workspace</small>
+                <small className="text-red-100 italic">User workspace</small>
             </div>
 
             <div className="mt-6">

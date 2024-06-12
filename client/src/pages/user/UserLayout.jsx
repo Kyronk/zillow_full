@@ -35,7 +35,7 @@ const UserLayout = () => {
                 <div className='bg-gray-200 col-span-2'>
                     <UserSidebar  /> 
                 </div>
-                <div className='bg-blue-500 col-span-10'>
+                <div className='col-span-10'>
                     <Outlet />
                 </div>
             </div>
